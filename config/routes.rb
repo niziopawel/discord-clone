@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :servers
+  resources :servers do
+    resources :channels
+  end
 
   devise_for :users,
              path: '',

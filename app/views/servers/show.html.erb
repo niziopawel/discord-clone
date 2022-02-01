@@ -1,0 +1,7 @@
+<h1><%= @server.name %></h1>
+<ul>
+  <% @server_channels.each do |channel| %>
+    <li><%= channel.formatted_name %></li>
+  <% end %>
+</ul>
+

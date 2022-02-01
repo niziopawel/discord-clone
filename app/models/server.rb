@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: services
+# Table name: servers
 #
 #  id         :integer          not null, primary key
 #  name       :string
@@ -10,11 +10,14 @@
 #
 # Indexes
 #
-#  index_services_on_owner_id  (owner_id)
+#  index_servers_on_owner_id  (owner_id)
 #
 
 class Server < ApplicationRecord
-  belongs_to :owner, class_name: 'User'
-
   validates :name, presence: true
+
+  belongs_to :owner, class_name: 'User'
+  has_many :channels, dependent: :destroy
+  has_many :server_memberships
+  has_many :members, through: :server_memberships, source: :user
 end

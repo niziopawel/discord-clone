@@ -4,10 +4,12 @@
     <span class="sidebar-tooltip group-hover:scale-100">Home</span>
   </div>
   <% servers_for_sidebar.each do |server| %>
-    <div class="sidebar-icon group">
-      <i class="far fa-gem"></i>
-      <span class="sidebar-tooltip group-hover:scale-100"><%= server.name %></span>
-    </div>
+    <%= link_to server_path(server) do %>
+      <div class="sidebar-icon group">
+        <i class="far fa-gem"></i>
+        <span class="sidebar-tooltip group-hover:scale-100"><%= server.name %></span>
+      </div>
+    <% end %>
   <% end %>
   <%= link_to new_server_path, data: { turbo_frame: "modal" } do %>
     <div class="sidebar-icon group">

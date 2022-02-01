@@ -24,5 +24,16 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :owned_servers, foreign_key: :owner, class_name: 'Server'
+  has_many :owned_servers,
+           foreign_key: :owner,
+           class_name: 'Server',
+           dependent: :destroy
+
+  has_many :server_memberships,
+           foreign_key: :member_id,
+           dependent: :destroy
+
+  has_many :membered_servers,
+           through: :server_memberships,
+           source: :server
 end
