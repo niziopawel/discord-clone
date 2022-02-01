@@ -1,18 +1,18 @@
-<div class="fixed top-0 left-0 h-screen w-16 m-0 flex flex-col bg-gray-900 text-white shadow">
+<div data-controller="sidebar" class="fixed top-0 left-0 h-screen w-16 m-0 flex flex-col bg-gray-900 text-white shadow z-10">
   <div class="sidebar-icon group">
     <i class="fas fa-home"></i>
     <span class="sidebar-tooltip group-hover:scale-100">Home</span>
   </div>
-  <% if user_signed_in? %>
-    <% servers_for_sidebar.each do |server| %>
-      <div class="sidebar-icon group">
-        <i class="far fa-gem"></i>
-        <span class="sidebar-tooltip group-hover:scale-100"><%= server.name %></span>
-      </div>
-    <% end %>
+  <% servers_for_sidebar.each do |server| %>
+    <div class="sidebar-icon group">
+      <i class="far fa-gem"></i>
+      <span class="sidebar-tooltip group-hover:scale-100"><%= server.name %></span>
+    </div>
   <% end %>
-  <div class="sidebar-icon group">
-    <i class="fas fa-plus"></i>
-    <span class="sidebar-tooltip group-hover:scale-100">Add server</span>
-  </div>
+  <%= link_to new_server_path, data: { turbo_frame: "modal" } do %>
+    <div class="sidebar-icon group">
+      <i class="fas fa-plus"></i>
+      <span class="sidebar-tooltip group-hover:scale-100">Add server</span>
+    </div>
+  <% end %>
 </div>
