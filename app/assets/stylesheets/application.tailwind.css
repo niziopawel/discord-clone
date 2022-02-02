@@ -9,7 +9,7 @@
   }
 
   .links {
-    @apply inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800;
+    @apply inline-block align-baseline font-bold text-sm text-indigo-400 hover:text-indigo-600;
   }
 
   .sidebar-icon {
