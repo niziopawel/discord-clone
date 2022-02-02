@@ -14,10 +14,14 @@
 #
 
 class Server < ApplicationRecord
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
   belongs_to :owner, class_name: 'User'
   has_many :channels, dependent: :destroy
   has_many :server_memberships
   has_many :members, through: :server_memberships, source: :user
+
+  def general_channel
+    channels.find_by(name: 'general')
+  end
 end
