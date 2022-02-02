@@ -10,10 +10,11 @@ class ServersController < ApplicationController
 
   def create
     @server = current_user.owned_servers.build(server_params)
-    @general_channel = @server.channels.new(name: 'general')
-    @first_member = ServerMembership.new(member_id: current_user.id, server_id: @server.id)
 
-    if @server.save && @generaL_channel.save && @first_member.save
+    if @server.save
+      @general_channel = @server.channels.create!(name: 'general')
+      @first_member = ServerMembership.create!(member_id: current_user.id, server_id: @server.id)
+
       redirect_to server_path(@server), notice: 'Server created successfully.'
     else
       render(turbo_stream:
