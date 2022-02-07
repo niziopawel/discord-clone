@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: channels
@@ -15,6 +17,7 @@
 
 class Channel < ApplicationRecord
   belongs_to :server
+  validates :name, presence: true
 
   def formatted_name
     "# #{name}"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: channels
@@ -13,7 +15,7 @@
 #  index_channels_on_server_id  (server_id)
 #
 
-require "test_helper"
+require 'test_helper'
 
 class ChannelTest < ActiveSupport::TestCase
   # test "the truth" do

@@ -1,14 +1,28 @@
-<div class="fixed top-0 left-16 h-screen w-48 p-5 text-white flex flex-col bg-gray-800">
-  <div class="flex flex-row justify-between content-center">
-    <h1 class="text-lg font-semibold mb-3"><%= @server.name %></h1>
-  </div>
-  <ul>
-    <% @server.channels.each do |channel| %>
-      <li class="hover:bg-gray-700 text-gray-300 rounded-md py-1 px-2 flex flex-row justify-between content-center">
-        <%= link_to server_channel_path(@server, channel)do %>
-          <%= channel.formatted_name %>
-        <% end %>
-      </li>
+<div class="fixed top-0 left-16 h-screen w-48 text-gray-400 flex flex-col bg-gray-800">
+  <div class="flex flex-row justify-between items-center p-3 shadow-sm">
+    <h1 class="text-lg font-semibold"><%= @server.name %></h1>
+    <% if @server.owner == current_user %>
+      <i class="fas fa-angle-down fa-lg self-center"></i>
     <% end %>
-  </ul>
+  </div>
+  <nav class="m-3">
+    <div class="flex flex-row justify-between items-center mt-4">
+      <h2 class="text-xs uppercase font-semibold tracking-wider">Channels</h2>
+      <% if @server.owner == current_user %>
+        <%= link_to new_server_channel_path, class: "group relative self-end", data: { turbo_frame: "modal" } do %>
+          <i class="fas fa-plus fa-md"></i>
+          <%= render partial: "shared/tooltip", locals: { display_text: "Create channel", position: "-top-3 left-5" } %>
+        <% end %>
+      <% end %>
+    </div>
+    <ul>
+      <% @server.channels.each do |channel| %>
+        <li class="hover:bg-gray-700 text-gray-300 rounded-md py-1 px-2 flex flex-row justify-between content-center">
+          <%= link_to server_channel_path(@server, channel)do %>
+            <%= channel.formatted_name %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
 </div>

@@ -1,4 +1,4 @@
 <%= render layout: "/shared/modal", locals: { title: "New Server" } do %>
-  <h1 class="text-white-800 font-semibold text-xl text-center">Create server</h1>
-  <%= render partial: 'servers/form', locals: { server: Server.new } %>
+  <h2 class="text-white-800 font-semibold text-xl text-center">Create server</h1>
+  <%= render partial: "servers/form", locals: { server: Server.new } %>
 <% end %>

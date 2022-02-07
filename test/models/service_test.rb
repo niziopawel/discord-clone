@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: services
@@ -13,7 +15,7 @@
 #  index_services_on_owner_id  (owner_id)
 #
 
-require "test_helper"
+require 'test_helper'
 
 class ServiceTest < ActiveSupport::TestCase
   # test "the truth" do

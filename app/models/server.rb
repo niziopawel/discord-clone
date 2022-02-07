@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: servers
@@ -18,7 +20,7 @@ class Server < ApplicationRecord
 
   belongs_to :owner, class_name: 'User'
   has_many :channels, dependent: :destroy
-  has_many :server_memberships
+  has_many :server_memberships, dependent: :destroy
   has_many :members, through: :server_memberships, source: :user
 
   def general_channel

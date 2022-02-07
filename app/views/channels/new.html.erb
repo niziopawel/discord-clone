@@ -1,0 +1,4 @@
+<%= render layout: "/shared/modal", locals: { title: "New Channel" } do %>
+  <h1 class="text-white-800 font-semibold text-xl text-center">Create Channel</h1>
+  <%= render partial: "channels/form", locals: { server: @server, channel: Channel.new } %>
+<% end %>

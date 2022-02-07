@@ -18,10 +18,22 @@
     cursor-pointer shadow-lg;
   }
 
-  .sidebar-tooltip {
+  .tooltip {
     @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md
     text-white bg-gray-900
     text-xs font-bold
     transition-all duration-300 scale-0 origin-left;
+  }
+
+  .form-input-fake {
+    @apply bg-gray-800 border border-gray-900 text-gray-100 rounded-sm focus:ring-blue-400 focus:ring-0.5 focus:border-blue-500 block w-full p-2;
+  }
+
+  .from-input {
+    @apply bg-gray-800 border border-gray-900;
+  }
+
+  .form-label {
+    
   }
 }
