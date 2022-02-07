@@ -17,7 +17,7 @@
     <main class="container ml-16 px-5 w-full">
       <%= render partial: "shared/flash" %>
       <% if user_signed_in? %>
-        <%= render partial: "layouts/sidebar" %>
+        <%= render partial: "layouts/servers_sidebar" %>
       <% end %>
       <%= turbo_frame_tag "modal" %>
       <%= yield %>

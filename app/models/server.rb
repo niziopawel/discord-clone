@@ -22,6 +22,6 @@ class Server < ApplicationRecord
   has_many :members, through: :server_memberships, source: :user
 
   def general_channel
-    channels.find_by(name: 'general')
+    channels.find { |channel| channel.name == 'general' }
   end
 end

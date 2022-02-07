@@ -1,5 +1,6 @@
 class ChannelsController < ApplicationController
   before_action :set_channel, only: %i[show]
+  before_action :set_server, only: %i[show]
 
   def show; end
 
@@ -12,6 +13,10 @@ class ChannelsController < ApplicationController
   private
 
   def set_channel
-    @channel = Channel.find(params[:channel_id])
+    @channel = Channel.find(params[:id])
+  end
+
+  def set_server
+    @server = Server.find(params[:server_id])
   end
 end

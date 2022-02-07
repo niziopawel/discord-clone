@@ -2,10 +2,6 @@ class ServersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_server, only: %i[show]
 
-  def index
-    @servers = Server.all
-  end
-
   def new; end
 
   def create

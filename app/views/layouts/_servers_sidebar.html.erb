@@ -3,8 +3,8 @@
     <i class="fas fa-home"></i>
     <span class="sidebar-tooltip group-hover:scale-100">Home</span>
   </div>
-  <% servers_for_sidebar.each do |server| %>
-    <%= link_to server_path(server) do %>
+  <% servers_with_general_channel.each do |server| %>
+    <%= link_to server_channel_path(server, server.channels[0].id) do %>
       <div class="sidebar-icon group">
         <i class="far fa-gem"></i>
         <span class="sidebar-tooltip group-hover:scale-100"><%= server.name %></span>
