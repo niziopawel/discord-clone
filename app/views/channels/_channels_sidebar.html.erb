@@ -4,7 +4,7 @@
     <% if @server.owner == current_user %>
       <%= link_to edit_server_path(@server), class: "group relative", data: { turbo_frame: "modal" } do %>
         <i class="fas fa-edit fa-md self-center"></i>
-        <%= render partial: "shared/tooltip", locals: { display_text: "Edit server", position: "-top-3 left-5" } %>
+        <%= render partial: "shared/tooltip", locals: { display_text: "Edit server info", position: "-top-3 left-5" } %>
       <% end %> 
     <% end %>
   </div>

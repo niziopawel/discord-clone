@@ -2,7 +2,7 @@
 
 class ServersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_server, only: %i[show edit update]
+  before_action :set_server, only: %i[show edit update destroy]
 
   def new; end
 
@@ -20,7 +20,8 @@ class ServersController < ApplicationController
           'server_form',
           partial: 'servers/form',
           locals: { server: @server }
-        )
+        ),
+        status: :unprocessable_entity
       )
     end
   end
@@ -29,7 +30,7 @@ class ServersController < ApplicationController
 
   def update
     if @server.update(server_params)
-      redirect_to server_channel_path(@server, @server.general_channel), notice: 'Server created successfully.'
+      redirect_to server_channel_path(@server, @server.general_channel), notice: 'Server updated successfully.'
     else
       render(
         turbo_stream: turbo_stream.update(
@@ -43,6 +44,14 @@ class ServersController < ApplicationController
 
   def show
     @server_channels = @server.channels
+  end
+
+  def destroy
+    @server.destroy
+
+    respond_to do |format|
+      format.turbo_stream { redirect_to servers_path, status: :see_other, notice: 'Server was successfully destroyed.' }
+    end
   end
 
   private

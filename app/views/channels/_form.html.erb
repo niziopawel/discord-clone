@@ -14,6 +14,10 @@
     <%= form.text_field :name, class: "bg-gray-800 border border-gray-900 text-gray-100 rounded-sm focus:ring-blue-400 focus:ring-0.5 focus:border-blue-500 block w-full p-2" %>
   </div>
   <div class="flex space-x-4">
-    <%= form.submit "Create channel", class: "btn-primary" %>
+    <% if action_name == "edit" %>
+      <%= form.submit "Update channel", class: "btn btn-primary" %>
+    <% else %>
+      <%= form.submit "Create channel", class: "btn btn-primary" %>
+    <% end %>
   </div>
 <% end %>
