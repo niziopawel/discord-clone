@@ -2,7 +2,7 @@
 
 class ServersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_server, only: %i[show]
+  before_action :set_server, only: %i[show edit update]
 
   def new; end
 
@@ -15,12 +15,29 @@ class ServersController < ApplicationController
 
       redirect_to server_channel_path(@server, @general_channel), notice: 'Server created successfully.'
     else
-      render(turbo_stream:
-        turbo_stream.update(
+      render(
+        turbo_stream: turbo_stream.update(
           'server_form',
           partial: 'servers/form',
           locals: { server: @server }
-        ))
+        )
+      )
+    end
+  end
+
+  def edit; end
+
+  def update
+    if @server.update(server_params)
+      redirect_to server_channel_path(@server, @server.general_channel), notice: 'Server created successfully.'
+    else
+      render(
+        turbo_stream: turbo_stream.update(
+          'server_form',
+          partial: 'servers/form',
+          locals: { server: @server }
+        )
+      )
     end
   end
 

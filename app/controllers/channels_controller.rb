@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ChannelsController < ApplicationController
-  before_action :set_channel, only: %i[show]
+  before_action :set_channel, only: %i[show update]
   before_action :set_server, only: %i[show new create]
 
   def show; end
@@ -9,18 +9,16 @@ class ChannelsController < ApplicationController
   def create
     @channel = @server.channels.build(channel_params)
 
-    respond_to do |format|
-      if @channel.save
-        redirect_to server_channel_path(@server, @channel), notice: 'Channel created successfully'
-      else
-        format.turbo_stream do
-          render turbo_stream.update(
-            'channel_form',
-            partial: 'channels/form',
-            locals: { server: @server, channel: @channel }
-          )
-        end
-      end
+    if @channel.save
+      redirect_to server_channel_path(@server, @channel), notice: 'Channel created successfully'
+    else
+      render(
+        turbo_stream: turbo_stream.update(
+          'channel_form',
+          partial: 'channels/form',
+          locals: { server: @server, channel: @channel }
+        )
+      )
     end
   end
 

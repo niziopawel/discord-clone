@@ -2,14 +2,17 @@
   <div class="flex flex-row justify-between items-center p-3 shadow-sm">
     <h1 class="text-lg font-semibold"><%= @server.name %></h1>
     <% if @server.owner == current_user %>
-      <i class="fas fa-angle-down fa-lg self-center"></i>
+      <%= link_to edit_server_path(@server), class: "group relative", data: { turbo_frame: "modal" } do %>
+        <i class="fas fa-edit fa-md self-center"></i>
+        <%= render partial: "shared/tooltip", locals: { display_text: "Edit server", position: "-top-3 left-5" } %>
+      <% end %> 
     <% end %>
   </div>
   <nav class="m-3">
     <div class="flex flex-row justify-between items-center mt-4">
       <h2 class="text-xs uppercase font-semibold tracking-wider">Channels</h2>
       <% if @server.owner == current_user %>
-        <%= link_to new_server_channel_path, class: "group relative self-end", data: { turbo_frame: "modal" } do %>
+        <%= link_to new_server_channel_path, class: "group relative", data: { turbo_frame: "modal" } do %>
           <i class="fas fa-plus fa-md"></i>
           <%= render partial: "shared/tooltip", locals: { display_text: "Create channel", position: "-top-3 left-5" } %>
         <% end %>
