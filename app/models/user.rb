@@ -38,4 +38,9 @@ class User < ApplicationRecord
   has_many :membered_servers,
            through: :server_memberships,
            source: :server
+
+  has_many :messages,
+           foreign_key: :author,
+           class_name: 'Message',
+           dependent: :destroy
 end

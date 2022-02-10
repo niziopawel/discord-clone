@@ -16,8 +16,9 @@
 #
 
 class Channel < ApplicationRecord
-  belongs_to :server
   validates :name, presence: true
+  belongs_to :server
+  has_many :messages
 
   def formatted_name
     "# #{name}"
