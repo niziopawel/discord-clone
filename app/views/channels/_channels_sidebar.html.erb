@@ -1,5 +1,5 @@
-<div class="fixed top-0 left-16 h-screen w-48 text-gray-400 flex flex-col bg-gray-800">
-  <div class="flex flex-row justify-between items-center p-3 shadow-sm">
+<div class="h-screen w-48 min-w-48 text-gray-400 flex flex-col bg-gray-800">
+  <div class="flex flex-row justify-between items-center min-h-14 shadow-sm px-3">
     <h1 class="text-lg font-semibold"><%= @server.name %></h1>
     <% if @server.owner == current_user %>
       <%= link_to edit_server_path(@server), class: "group relative", data: { turbo_frame: "modal" } do %>

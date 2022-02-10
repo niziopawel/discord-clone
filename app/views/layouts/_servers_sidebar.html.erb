@@ -1,4 +1,4 @@
-<div data-controller="sidebar" class="fixed top-0 left-0 h-screen w-16 m-0 flex flex-col bg-gray-900 text-white shadow z-10">
+<nav data-controller="sidebar" class="h-full w-16 min-w-16 m-0 flex flex-col bg-gray-900 text-white shadow z-10">
   <%= link_to "#", class:"sidebar-icon group" do %>
     <i class="fas fa-home"></i>
     <%= render partial: "shared/tooltip", locals: { display_text: "Home" } %>
@@ -13,4 +13,4 @@
     <i class="fas fa-plus"></i>
     <%= render partial: "shared/tooltip", locals: { display_text: "Add server" } %>
   <% end %>
-</div>
+</nav>

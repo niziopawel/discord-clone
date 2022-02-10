@@ -14,13 +14,15 @@
 
   <body class="bg-gray-700 text-white h-screen w-full">
     <div class="bg-black z-20 opacity-80 fixed top-0 right-0 left-0 bottom-0 hidden"></div>
-    <main class="container ml-16 px-5 w-full">
+    <main class="w-full h-full">
       <%= render partial: "shared/flash" %>
-      <% if user_signed_in? %>
-        <%= render partial: "layouts/servers_sidebar" %>
-      <% end %>
+      <div class="flex overflow-hidden relative flex-row w-full h-full items-start">
+        <% if user_signed_in? %>
+          <%= render partial: "layouts/servers_sidebar" %>
+        <% end %>
+        <%= yield %>
+      </div> 
       <%= turbo_frame_tag "modal" %>
-      <%= yield %>
     </main>
   </body>
 </html>

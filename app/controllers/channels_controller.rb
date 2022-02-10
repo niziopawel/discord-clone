@@ -4,7 +4,9 @@ class ChannelsController < ApplicationController
   before_action :set_channel, only: %i[show update]
   before_action :set_server, only: %i[show new create]
 
-  def show; end
+  def show
+    @messages = @channel.messages.includes(:author)
+  end
 
   def create
     @channel = @server.channels.build(channel_params)

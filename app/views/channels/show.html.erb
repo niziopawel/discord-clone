@@ -1,2 +1,9 @@
-<%= render partial: "channels_sidebar" %>
-
+<div class="flex flex-row w-full h-full">
+  <%= render partial: "channels_sidebar" %>
+  <div class="w-full flex flex-col"> 
+    <%= render 'channels_navbar' %>
+    <div class="flex-auto flex h-full p-4">
+      <%= render partial: 'messages/message', collection: @messages %>
+    </div>
+  </div>
+</div>
