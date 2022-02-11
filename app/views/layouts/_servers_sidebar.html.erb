@@ -4,7 +4,7 @@
     <%= render partial: "shared/tooltip", locals: { display_text: "Home" } %>
   <% end %>
   <% servers_with_general_channel.each do |server| %>
-    <%= link_to server_channel_path(server, server.channels[0].id), class: 'sidebar-icon group' do %>
+    <%= link_to channel_path(server.channels[0]), class: 'sidebar-icon group' do %>
       <i class="far fa-gem"></i>
       <%= render partial: "shared/tooltip", locals: { display_text: server.name } %>
     <% end %>

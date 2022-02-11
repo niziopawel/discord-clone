@@ -30,7 +30,7 @@ class ServersController < ApplicationController
 
   def update
     if @server.update(server_params)
-      redirect_to server_channel_path(@server, @server.general_channel), notice: 'Server updated successfully.'
+      redirect_to channel_path(@server.general_channel), notice: 'Server updated successfully.'
     else
       render(
         turbo_stream: turbo_stream.update(

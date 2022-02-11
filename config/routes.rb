@@ -2,7 +2,9 @@
 
 Rails.application.routes.draw do
   resources :servers do
-    resources :channels
+    resources :channels, shallow: true do
+      resources :messages, shallow: true
+    end
   end
 
   devise_for :users,

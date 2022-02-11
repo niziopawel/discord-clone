@@ -1,18 +1,25 @@
 # frozen_string_literal: true
 
 class ChannelsController < ApplicationController
-  before_action :set_channel, only: %i[show update]
-  before_action :set_server, only: %i[show new create]
+  include ChannelsHelper
+  before_action :set_channel, only: %i[show update edit destroy]
+  before_action :set_server, only: %i[new create]
+  before_action -> { @server.server_owner?(current_user) }, only: %i[create update destroy]
 
   def show
-    @messages = @channel.messages.includes(:author)
+    @server = @channel.server
+  end
+
+  def new
+    @server = Server.find(params[:server_id])
+    @channel = Channel.new
   end
 
   def create
     @channel = @server.channels.build(channel_params)
 
     if @channel.save
-      redirect_to server_channel_path(@server, @channel), notice: 'Channel created successfully'
+      redirect_to channel_path(@channel), notice: 'Channel created successfully'
     else
       render(
         turbo_stream: turbo_stream.update(
@@ -28,7 +35,13 @@ class ChannelsController < ApplicationController
 
   def update; end
 
+  def destroy; end
+
   private
+
+  def set_server
+    @server = Server.find(params[:server_id])
+  end
 
   def channel_params
     params.require(:channel).permit(:name)
@@ -36,9 +49,5 @@ class ChannelsController < ApplicationController
 
   def set_channel
     @channel = Channel.find(params[:id])
-  end
-
-  def set_server
-    @server = Server.find(params[:server_id])
   end
 end

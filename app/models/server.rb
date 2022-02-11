@@ -26,4 +26,12 @@ class Server < ApplicationRecord
   def general_channel
     channels.find { |channel| channel.name == 'general' }
   end
+
+  def server_member(user)
+    members.include?(user)
+  end
+
+  def server_owner?(user)
+    owner == user
+  end
 end
