@@ -8,6 +8,7 @@ class ChannelsController < ApplicationController
 
   def show
     @server = @channel.server
+    @messages = @channel.messages
   end
 
   def new

@@ -23,4 +23,5 @@ class Message < ApplicationRecord
   scope :user_channel_messages, lambda { |user_id, channel_id|
                                   where(['author_id = ? and channel_id = ?', user_id, channel_id])
                                 }
+  broadcasts_to :channel
 end

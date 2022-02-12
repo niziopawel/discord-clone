@@ -1,9 +1,17 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_message, only: %i[edit show]
+
   def index; end
 
-  def new; end
+  def new
+    @message = Message.new
+  end
 
-  def create; end
+  def create
+    @channel = Channel.find(params[:channel_id])
+    @message = @channel.messages.create!(message_params.merge(author_id: current_user.id))
+  end
 
   def edit; end
 
@@ -11,7 +19,11 @@ class MessagesController < ApplicationController
 
   private
 
+  def set_message
+    Message.find(params[:id])
+  end
+
   def message_params
-    params.require(:message).permit(:author_id, :channel_id, :body)
+    params.require(:message).permit(:body)
   end
 end

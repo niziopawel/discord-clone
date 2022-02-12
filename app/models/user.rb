@@ -43,4 +43,6 @@ class User < ApplicationRecord
            foreign_key: :author,
            class_name: 'Message',
            dependent: :destroy
+  include Gravtastic
+  gravtastic
 end

@@ -1,4 +1,11 @@
-<div>
-  <h2> <%= message.author.username %></h2> 
-  <p><%= message.body %></p>
+<div id="<%= dom_id message %>" class="w-full flex flex-row my-5">
+  <%= image_tag message.author.gravatar_url, class: "w-8 h-8 rounded-full mt-1 mr-3" %>
+    
+  <div class="flex flex-col flex-auto">
+    <div class="flex flex-row items-center">
+      <h2><%= message.author.username %></h2> 
+      <p class="text-xs text-gray-500 ml-2"><%= time_tag message.created_at, "data-local": "time-ago" %><p>
+    </div>
+    <p class="text-sm text-gray-400"><%= message.body %></p>
+  </div>
 </div>
