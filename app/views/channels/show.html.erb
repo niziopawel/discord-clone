@@ -4,19 +4,19 @@
   <div class="w-full flex flex-col"> 
     <%= render 'channels_navbar' %>
     <div id="content" class="flex-auto flex h-full flex-row items-stretch">
-      <div id="chat" class="flex flex-col basis-4/5 justify-end p-4">
-        <div id="messages">
-          <%= turbo_frame_tag @channel do %>
-            <% if @messages.empty? %>
-              <h1 class="self-center text-3xl font-bold m-8">Welcome to <%= formatted_name(@channel) %> channel.</h1>
-            <% else %> 
-              <%= render partial: 'messages/message', collection: @messages %>
-            <% end %> 
-          <% end %>
+      <main id="chat" class="flex flex-col flex-1 justify-end">
+        <div id="messages" class="overflow-y-auto relative">
+          <% if @messages.empty? %>
+            <h1 class="self-center text-3xl font-bold m-8">Welcome to <%= formatted_name(@channel) %> channel.</h1>
+          <% else %> 
+            <%= render partial: 'messages/message', collection: @messages %>
+          <% end %> 
         </div>
-        <%= render partial: 'messages/form', locals: { channel: @channel, message: Message.new } %>
-      </div>
-      <div class="bg-gray-800 flex-auto overflow-visible pt-7 pl-4">
+        <div class="mb-4 mx-4">
+          <%= render partial: 'messages/form', locals: { channel: @channel, message: Message.new } %>
+        </div>
+      </main>
+      <div class="bg-gray-800 w-56 overflow-visible pt-7 pl-4">
         <h2 class="text-sm text-gray-500 uppercase font-semibold">Online users: </h2>
       </div>
     </div>

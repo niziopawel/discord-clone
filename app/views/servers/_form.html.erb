@@ -13,11 +13,5 @@
     <%= form.label :name, class: "text-xs uppercase font-medium text-white block mb-2" %>
     <%= form.text_field :name, class: "bg-gray-800 border border-gray-900 text-gray-100 rounded-sm focus:ring-blue-400 focus:ring-0.5 focus:border-blue-500 block w-full p-2" %>
   </div>
-  <div class="flex space-x-4 items-center">
-    <% if action_name == "edit" %>
-      <%= form.button "Update", class: "btn btn-primary" %>
-    <% else %>
-      <%= form.button "Create server", class: "btn btn-primary" %>
-    <% end %>
-  </div>
+  <%= form.button server.persisted? ? 'Update' : 'Create', class: "btn btn-primary" %>
 <% end %>

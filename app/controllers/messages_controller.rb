@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_message, only: %i[edit show]
+  before_action :set_message, only: %i[edit show update]
 
   def index; end
 
@@ -15,12 +15,18 @@ class MessagesController < ApplicationController
 
   def edit; end
 
-  def update; end
+  def update
+    if @message.update(message_params)
+      redirect_to @message.channel
+    else
+      render turbo_stream: :turbo_stream.replace(@post, partial: 'messages/form', locals: { post: @post })
+    end
+  end
 
   private
 
   def set_message
-    Message.find(params[:id])
+    @message = Message.find(params[:id])
   end
 
   def message_params
