@@ -6,7 +6,6 @@ class ChannelsController < ApplicationController
   before_action :set_server, only: %i[new create]
   before_action :require_permission, only: %i[new create edit update destroy]
 
-
   def show
     @server = @channel.server
     @messages = @channel.messages
@@ -52,7 +51,8 @@ class ChannelsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        redirect_to channel_path(@server.general_channel), status: :see_other, notice: 'Channel was successfully destroyed.'
+        redirect_to channel_path(@server.general_channel), status: :see_other,
+                                                           notice: 'Channel was successfully destroyed.'
       end
     end
   end

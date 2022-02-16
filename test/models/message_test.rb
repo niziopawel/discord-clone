@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: messages
@@ -15,7 +17,7 @@
 #  index_messages_on_channel_id  (channel_id)
 #
 
-require "test_helper"
+require 'test_helper'
 
 class MessageTest < ActiveSupport::TestCase
   # test "the truth" do

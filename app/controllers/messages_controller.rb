@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 class MessagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_message, only: %i[edit show update]
+  before_action :set_message, only: %i[edit show update destroy]
+  before_action :require_permission, only: %i[edit update destroy]
 
   def index; end
 
@@ -23,7 +26,17 @@ class MessagesController < ApplicationController
     end
   end
 
+  def destroy
+    @message.destroy
+  end
+
   private
+
+  def require_permission
+    return if @message.author == current_user
+
+    redirect_to channel_path(@message.channel), status: :unauthorized, notice: 'You do not have permission to do that'
+  end
 
   def set_message
     @message = Message.find(params[:id])
