@@ -4,15 +4,19 @@
   <div class="w-full flex flex-col"> 
     <%= render 'channels_navbar' %>
     <div id="content" class="flex-auto flex h-full flex-row items-stretch">
-      <main id="chat" class="flex flex-col flex-1 justify-end">
-        <div id="messages" class="overflow-y-auto relative">
-          <% if @messages.empty? %>
-            <h1 class="self-center text-3xl font-bold m-8">Welcome to <%= formatted_name(@channel) %> channel.</h1>
-          <% else %> 
-            <%= render partial: 'messages/message', collection: @messages %>
-          <% end %> 
+      <main id="chat" class="flex flex-col flex-auto h-full justify-end">
+        <div class="flex flex-auto justify-end relative z-0 min-w-0 min-h-0">
+          <div id="scroller" data-controller="scroll" class="overflow-auto absolute top-0 bottom-0 left-0 right-0">
+            <div id="messages" class="flex flex-col min-h-full justify-end">
+              <% if @messages.empty? %>
+                <h1 class="self-center text-3xl font-bold m-8">Welcome to <%= formatted_name(@channel) %> channel.</h1>
+              <% else %> 
+                <%= render partial: 'messages/message', collection: @messages %>
+              <% end %> 
+            </div>
+          </div>
         </div>
-        <div class="mb-4 mx-4">
+        <div class="mb-4 mx-4 shrink-0 mt-2 relative">
           <%= render partial: 'messages/form', locals: { channel: @channel, message: Message.new } %>
         </div>
       </main>

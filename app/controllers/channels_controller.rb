@@ -8,7 +8,7 @@ class ChannelsController < ApplicationController
 
   def show
     @server = @channel.server
-    @messages = @channel.messages
+    @messages = @channel.messages.order(created_at: :asc)
   end
 
   def new
