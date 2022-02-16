@@ -21,8 +21,14 @@
     <ul>
       <% @server.channels.each do |channel| %>
         <li class="hover:bg-gray-700 text-gray-300 rounded-md py-1 px-2 flex flex-row justify-between content-center">
-          <%= link_to channel_path(channel), class: "w-full" do %>
+          <%= link_to channel_path(channel), class: "w-full flex" do %>
             <%= formatted_name(channel) %>
+            <% if current_user == channel.server.owner %>
+              <%= link_to edit_channel_path(channel), class: 'group relative' do %>
+                <i class="fas fa-edit fa-xs self-center"></i>
+                <%= render partial: 'shared/tooltip', locals: { display_text: 'Edit channel', position: '-top-3 left-5' } %>
+              <% end %>
+            <% end %>
           <% end %>
         </li>
       <% end %>
