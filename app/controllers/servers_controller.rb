@@ -3,6 +3,7 @@
 class ServersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_server, only: %i[show edit update destroy]
+  before_action :require_permission, only: %i[edit update destroy]
 
   def new; end
 
@@ -10,17 +11,10 @@ class ServersController < ApplicationController
     @server = current_user.owned_servers.build(server_params)
 
     if @server.save
-      @general_channel = @server.channels.create!(name: 'general')
-      @first_member = ServerMembership.create!(member_id: current_user.id, server_id: @server.id)
-
-      redirect_to server_channel_path(@server, @general_channel), notice: 'Server created successfully.'
+      redirect_to channel_path(@server.general_channel), notice: 'Server created successfully.'
     else
       render(
-        turbo_stream: turbo_stream.update(
-          'server_form',
-          partial: 'servers/form',
-          locals: { server: @server }
-        ),
+        turbo_stream: turbo_stream.update('server_form', partial: 'servers/form', locals: { server: @server }),
         status: :unprocessable_entity
       )
     end
@@ -33,11 +27,8 @@ class ServersController < ApplicationController
       redirect_to channel_path(@server.general_channel), notice: 'Server updated successfully.'
     else
       render(
-        turbo_stream: turbo_stream.update(
-          'server_form',
-          partial: 'servers/form',
-          locals: { server: @server }
-        )
+        turbo_stream: turbo_stream.update('server_form', partial: 'servers/form', locals: { server: @server }),
+        status: :unprocessable_entity
       )
     end
   end
@@ -50,11 +41,19 @@ class ServersController < ApplicationController
     @server.destroy
 
     respond_to do |format|
-      format.turbo_stream { redirect_to servers_path, status: :see_other, notice: 'Server was successfully destroyed.' }
+      format.turbo_stream do
+        redirect_to authenticated_root_path, status: :see_other, notice: 'Server was successfully destroyed.'
+      end
     end
   end
 
   private
+
+  def require_permission
+    return if current_user == @server.owner
+
+    redirect_to authenticated_root_path, status: :unauthorized, notice: 'You do not have permission to do that.'
+  end
 
   def server_params
     params.require(:server).permit(:name)
