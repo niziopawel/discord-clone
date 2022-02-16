@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,63 +12,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_09_113700) do
-
+ActiveRecord::Schema.define(version: 20_220_209_113_700) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "channels", force: :cascade do |t|
-    t.string "name"
-    t.bigint "server_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["server_id"], name: "index_channels_on_server_id"
+  create_table 'channels', force: :cascade do |t|
+    t.string 'name'
+    t.bigint 'server_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['server_id'], name: 'index_channels_on_server_id'
   end
 
-  create_table "messages", force: :cascade do |t|
-    t.bigint "author_id", null: false
-    t.text "body"
-    t.bigint "channel_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["author_id"], name: "index_messages_on_author_id"
-    t.index ["channel_id"], name: "index_messages_on_channel_id"
+  create_table 'messages', force: :cascade do |t|
+    t.bigint 'author_id', null: false
+    t.text 'body'
+    t.bigint 'channel_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['author_id'], name: 'index_messages_on_author_id'
+    t.index ['channel_id'], name: 'index_messages_on_channel_id'
   end
 
-  create_table "server_memberships", force: :cascade do |t|
-    t.bigint "member_id", null: false
-    t.bigint "server_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["member_id"], name: "index_server_memberships_on_member_id"
-    t.index ["server_id"], name: "index_server_memberships_on_server_id"
+  create_table 'server_memberships', force: :cascade do |t|
+    t.bigint 'member_id', null: false
+    t.bigint 'server_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['member_id'], name: 'index_server_memberships_on_member_id'
+    t.index ['server_id'], name: 'index_server_memberships_on_server_id'
   end
 
-  create_table "servers", force: :cascade do |t|
-    t.string "name"
-    t.bigint "owner_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["owner_id"], name: "index_servers_on_owner_id"
+  create_table 'servers', force: :cascade do |t|
+    t.string 'name'
+    t.bigint 'owner_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['owner_id'], name: 'index_servers_on_owner_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at", precision: 6
-    t.datetime "remember_created_at", precision: 6
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "username"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  create_table 'users', force: :cascade do |t|
+    t.string 'email', default: '', null: false
+    t.string 'encrypted_password', default: '', null: false
+    t.string 'reset_password_token'
+    t.datetime 'reset_password_sent_at', precision: 6
+    t.datetime 'remember_created_at', precision: 6
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.string 'username'
+    t.index ['email'], name: 'index_users_on_email', unique: true
+    t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end
 
-  add_foreign_key "channels", "servers"
-  add_foreign_key "messages", "channels"
-  add_foreign_key "messages", "users", column: "author_id"
-  add_foreign_key "server_memberships", "servers"
-  add_foreign_key "server_memberships", "users", column: "member_id"
-  add_foreign_key "servers", "users", column: "owner_id"
+  add_foreign_key 'channels', 'servers'
+  add_foreign_key 'messages', 'channels'
+  add_foreign_key 'messages', 'users', column: 'author_id'
+  add_foreign_key 'server_memberships', 'servers'
+  add_foreign_key 'server_memberships', 'users', column: 'member_id'
+  add_foreign_key 'servers', 'users', column: 'owner_id'
 end
