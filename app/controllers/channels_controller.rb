@@ -4,7 +4,7 @@ class ChannelsController < ApplicationController
   include ChannelsHelper
   before_action :set_channel, only: %i[show update edit destroy]
   before_action :set_server, only: %i[new create]
-  before_action -> { @server.server_owner?(current_user) }, only: %i[create update destroy]
+  before_action :require_permission, only: %i[create update destroy]
 
   def show
     @server = @channel.server
@@ -39,6 +39,12 @@ class ChannelsController < ApplicationController
   def destroy; end
 
   private
+
+  def require_permission
+    return if @channel.owner == current_user
+
+    redirect_to channel_path(@channel), notice: 'You do not have permission to do that'
+  end
 
   def set_server
     @server = Server.find(params[:server_id])

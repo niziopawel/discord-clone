@@ -32,10 +32,6 @@ class Server < ApplicationRecord
     members.include?(user)
   end
 
-  def server_owner?(user)
-    owner == user
-  end
-
   def create_general_channel
     channels.create(name: 'general')
   end
