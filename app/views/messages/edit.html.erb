@@ -7,10 +7,23 @@
         <h2><%= @message.author.username %></h2> 
         <p class="text-xs text-gray-500 ml-2"><%= time_tag @message.created_at, "data-local": "time-ago" %><p>
       </div>
-      <div class="my-2">
+      <div class="my-2 items-center">
         <%= render partial: 'form', locals: { message: @message, channel: nil } %>
       </div>
-      <%= link_to 'Cancel', @message.channel, class: "text-blue-500 text-sm hover:underline underline-offset-2 ml-2 mb-2" %>
+      <div class="flex items-center mb-1">
+        <%= button_to "Delete", 
+          @message, 
+          method: :delete, 
+          class: "btn btn-danger text-xs", 
+          form: { data: { 
+            turbo_confirm: "Are you sure?", 
+            turbo_frame: "_top",
+            controller: "confirmation",
+            action: "confirmation#confirm",
+            message: "Are you sure?"
+          } } %>
+        <%= link_to 'Cancel', @message.channel, class: "text-blue-500 text-sm hover:underline underline-offset-2 ml-2" %>
+      </div>
     </div>
   </div>
 <% end %>
