@@ -13,12 +13,17 @@ class MessagesController < ApplicationController
     if @message.update(message_params)
       redirect_to @message.channel
     else
-      render turbo_stream: turbo_stream.replace(@message, partial: 'messages/form', locals: { message: @message })
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @message.destroy
+
+    respond_to do |format|
+      format.turbo_stream {}
+      format.html { redirect_to @message.channel }
+    end
   end
 
   private

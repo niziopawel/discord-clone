@@ -9,7 +9,17 @@ class Channels::MessagesController < ApplicationController
 
   def create
     @channel = Channel.find(params[:channel_id])
-    @message = @channel.messages.create!(message_params.merge(author_id: current_user.id))
+    @message = @channel.messages.new(message_params)
+    @message.author = current_user
+
+    respond_to do |format|
+      if @message.save
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace('message_form', partial: 'messages/form',
+                                                                    locals: { message: Message.new })
+        end
+      end
+    end
   end
 
   private
