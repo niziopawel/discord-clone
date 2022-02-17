@@ -24,7 +24,7 @@
           <%= link_to channel_path(channel), class: "w-full flex" do %>
             <%= formatted_name(channel) %>
             <% if current_user == channel.server.owner %>
-              <%= link_to edit_channel_path(channel), class: 'group relative' do %>
+              <%= link_to edit_channel_path(channel), data: { turbo_frame: 'modal' }, class: 'group relative' do %>
                 <i class="fas fa-edit fa-xs self-center"></i>
                 <%= render partial: 'shared/tooltip', locals: { display_text: 'Edit channel', position: '-top-3 left-5' } %>
               <% end %>

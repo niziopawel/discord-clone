@@ -22,7 +22,7 @@ class MessagesController < ApplicationController
     if @message.update(message_params)
       redirect_to @message.channel
     else
-      render turbo_stream: :turbo_stream.replace(@post, partial: 'messages/form', locals: { post: @post })
+      render turbo_stream: turbo_stream.replace(@post, partial: 'messages/form', locals: { post: @post })
     end
   end
 
