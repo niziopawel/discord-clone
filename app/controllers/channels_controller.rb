@@ -3,33 +3,11 @@
 class ChannelsController < ApplicationController
   include ChannelsHelper
   before_action :set_channel, only: %i[show update edit destroy]
-  before_action :set_server, only: %i[new create]
-  before_action :require_permission, only: %i[new create edit update destroy]
+  before_action :require_permission, only: %i[edit update destroy]
 
   def show
     @server = @channel.server
     @messages = @channel.messages.order(created_at: :asc)
-  end
-
-  def new
-    @server = Server.find(params[:server_id])
-    @channel = Channel.new
-  end
-
-  def create
-    @channel = @server.channels.build(channel_params)
-
-    if @channel.save
-      redirect_to channel_path(@channel), notice: 'Channel created successfully'
-    else
-      render(
-        turbo_stream: turbo_stream.update(
-          'channel_form',
-          partial: 'channels/form',
-          locals: { server: @server, channel: @channel }
-        )
-      )
-    end
   end
 
   def edit; end
@@ -39,7 +17,7 @@ class ChannelsController < ApplicationController
       redirect_to channel_path(@channel), notice: 'Channel updated successfully.'
     else
       render(
-        turbo_stream: turbo_stream.update('channel_form', partial: 'channel/form', locals: { channel: @channel }),
+        turbo_stream: turbo_stream.update('channel_form', partial: 'channels/form', locals: { channel: @channel }),
         status: :unprocessable_entity
       )
     end
@@ -60,17 +38,9 @@ class ChannelsController < ApplicationController
   private
 
   def require_permission
-    if action_name == 'new' || action_name == 'create'
-      return if @server.owner == current_user
-    elsif @channel.server.owner == current_user
-      return
-    end
+    return if @channel.server.owner == current_user
 
-    redirect_to channel_path(@channel), status: :unauthorized, notice: 'You do not have permission to do that.'
-  end
-
-  def set_server
-    @server = Server.find(params[:server_id])
+    redirect_to channel_path(@channel), status: :unauthorized
   end
 
   def channel_params

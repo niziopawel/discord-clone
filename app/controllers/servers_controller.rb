@@ -52,7 +52,7 @@ class ServersController < ApplicationController
   def require_permission
     return if current_user == @server.owner
 
-    redirect_to authenticated_root_path, status: :unauthorized, notice: 'You do not have permission to do that.'
+    redirect_to authenticated_root_path, status: :unauthorized
   end
 
   def server_params

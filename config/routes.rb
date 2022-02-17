@@ -2,10 +2,14 @@
 
 Rails.application.routes.draw do
   resources :servers do
-    resources :channels, shallow: true do
-      resources :messages, shallow: true
-    end
+    resources :channels, only: %i[new create], module: :servers
   end
+
+  resources :channels, only: %i[show edit update create destroy] do
+    resources :messages, only: %i[new create], module: :channels
+  end
+
+  resources :messages, only: %i[show edit update create destroy]
 
   devise_for :users,
              path: '',
@@ -19,3 +23,4 @@ Rails.application.routes.draw do
     unauthenticated { root to: 'devise/sessions#new', as: :unauthenticated_root }
   end
 end
+

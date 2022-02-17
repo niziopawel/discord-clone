@@ -7,22 +7,13 @@ class MessagesController < ApplicationController
 
   def index; end
 
-  def new
-    @message = Message.new
-  end
-
-  def create
-    @channel = Channel.find(params[:channel_id])
-    @message = @channel.messages.create!(message_params.merge(author_id: current_user.id))
-  end
-
   def edit; end
 
   def update
     if @message.update(message_params)
       redirect_to @message.channel
     else
-      render turbo_stream: turbo_stream.replace(@post, partial: 'messages/form', locals: { post: @post })
+      render turbo_stream: turbo_stream.replace(@message, partial: 'messages/form', locals: { message: @message })
     end
   end
 
@@ -35,7 +26,7 @@ class MessagesController < ApplicationController
   def require_permission
     return if @message.author == current_user
 
-    redirect_to channel_path(@message.channel), status: :unauthorized, notice: 'You do not have permission to do that'
+    redirect_to channel_path(@message.channel), status: :unauthorized
   end
 
   def set_message
