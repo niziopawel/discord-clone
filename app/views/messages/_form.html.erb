@@ -1,6 +1,6 @@
 <% model = [local_assigns[:channel], message].compact %>
 
-<%= form_with model: model, data: { controller: "message-form" }, id: 'message_form', class: "flex flex-row bg-gray-600 rounded-lg justify-between overflow-hidden appearance-none p-2 border-none" do |form| %>
+<%= form_with model: model, data: { controller: "message-form" }, id: dom_id_for_records(*model), class: "flex flex-row bg-gray-600 rounded-lg justify-between overflow-hidden appearance-none p-2 border-none" do |form| %>
   <%= form.text_field :body, data: { 'message-form-target': 'input' }, required: true, class: "bg-transparent w-full py-0 text-md border-none outline-0 text-gray-400 focus:border-0 focus:outline-0 focus:shadow-0 focus:ring-0" %>
   <% if action_name == 'edit' %>
     <%= form.button 'Update', class: 'btn btn-primary text-xs' %>

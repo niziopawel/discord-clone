@@ -1,4 +1,6 @@
 class Channels::MessagesController < ApplicationController
+  include ActionView::RecordIdentifier
+  include RecordHelper
   before_action :authenticate_user!
   before_action :set_channel
   before_action :require_permission
@@ -14,9 +16,12 @@ class Channels::MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
+        message = Message.new
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('message_form', partial: 'messages/form',
-                                                                    locals: { message: Message.new })
+          render turbo_stream: turbo_stream.replace(dom_id_for_records(@channel, message),
+                                                    partial: 'messages/form',
+                                                    locals: { channel: @channel,
+                                                              message: message })
         end
       end
     end
