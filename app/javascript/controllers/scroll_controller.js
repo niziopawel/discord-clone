@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
+  static targets = ["messagesContainer"]
+
   connect() {
     this.element.scrollTop = this.element.scrollHeight - this.element.clientHeight
 
@@ -8,8 +10,7 @@ export default class extends Controller {
     const observer = new MutationObserver(() => {
       this.resetScroll()
     })
-    const messages = document.getElementById('messages')
-    observer.observe(messages, config)
+    observer.observe(this.messagesContainerTarget, config)
   }
 
   resetScroll() {

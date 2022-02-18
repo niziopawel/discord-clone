@@ -5,7 +5,7 @@
     <div id="content" class="flex-auto flex h-full flex-row items-stretch">
       <main id="chat" class="flex flex-col flex-auto h-full justify-end">
         <div class="flex flex-auto justify-end relative z-0 min-w-0 min-h-0">
-          <div id="scroller" data-controller="scroll" class="overflow-auto absolute top-0 bottom-0 left-0 right-0">
+          <div id="scroller" data-controller="scroll" data-scroll-target="messagesContainer" class="overflow-auto absolute top-0 bottom-0 left-0 right-0">
             <%= turbo_stream_from @channel, :messages %>
             <div id="<%= dom_id(@channel) %>_messages" class="flex flex-col min-h-full justify-end">
               <% if @messages.empty? %>
