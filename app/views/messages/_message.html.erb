@@ -1,6 +1,6 @@
 <%= turbo_stream_from message %>
 <%= turbo_frame_tag dom_id(message) do %>
-  <div id="<%= dom_id message %>" class="w-full flex flex-row my-1 items-center px-4 py-1 hover:bg-gray-800">
+  <div id="<%= dom_id message %>" data-author-id="<%= message.author.id %>" data-href="<%= edit_message_path(message) %>" class="w-full flex flex-row my-1 items-center px-4 py-1 hover:bg-gray-800">
     <%= image_tag message.author.gravatar_url, class: "w-8 h-8 rounded-full mt-1 mr-3" %>
       
     <div class="flex flex-col flex-auto">
@@ -10,6 +10,5 @@
       </div>
       <p class="text-sm text-gray-400"><%= message.body %></p>
     </div>
-    <%= link_to 'Edit', edit_message_path(message), class: 'text-sm text-gray-400 underline underline-offset-2' %>
   </div>
 <% end %>
