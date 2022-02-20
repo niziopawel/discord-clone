@@ -7,7 +7,7 @@ class ChannelsController < ApplicationController
 
   def show
     @server = @channel.server
-    @messages = @channel.messages.order(created_at: :asc)
+    @messages = @channel.messages.includes(:author).order(created_at: :asc)
   end
 
   def edit; end
