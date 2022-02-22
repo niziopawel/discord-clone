@@ -6,7 +6,9 @@ class ServersController < ApplicationController
   before_action :require_permission, only: %i[edit update destroy]
 
   def index
-    @servers = Server.all.includes(:members).sort_by { |server| -server.members.count }
+    @servers = Server.all.includes(:members)
+                     .sort_by { |server| -server.members.count }
+                     .filter { |server| current_user.owned_servers.exclude? server }
   end
 
   def new; end
