@@ -1,3 +1,6 @@
 <%= render layout: "shared/navbar" do %>
   <h1 class="text-2xl text-white font-semibold"><%= formatted_name(@channel) %></h1>
+  <% unless @server.server_owner?(current_user) %>
+    <%= link_to "Leave server", leave_server_path(@server), class: "btn btn-outline-danger text-xs" %>
+  <% end %>
 <% end %>
