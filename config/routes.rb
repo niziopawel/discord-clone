@@ -2,6 +2,11 @@
 
 Rails.application.routes.draw do
   resources :servers do
+    member do
+      get 'join'
+      get 'leave'
+    end
+
     resources :channels, only: %i[new create], module: :servers
   end
 
@@ -19,8 +24,7 @@ Rails.application.routes.draw do
              }
 
   devise_scope :user do
-    authenticated { root to: 'servers#index', as: :authenticated_root }
+    authenticated { root to: 'main#index', as: :authenticated_root }
     unauthenticated { root to: 'devise/sessions#new', as: :unauthenticated_root }
   end
 end
-

@@ -1,0 +1,31 @@
+  <%= render layout: "shared/inner_sidebar" do %>
+    <div class="flex flex-col m-2"> 
+      <h1 class="text-2xl text-white font-semibold z-0 my-2">Discover</h1>
+      <ul>
+        <li class="p-2 hover:bg-gray-700 rounded-md">
+          <%= link_to "#", class: "flex flex-row w-full" do %>
+            <i class="fas fa-home self-center mr-3"></i>
+            <h3>Home</h3>
+          <% end %>
+        </li>
+        <li class="p-2 hover:bg-gray-700 rounded-md">
+          <%= link_to "#", class: "flex flex-row w-full" do %>
+            <i class="fas fa-gamepad self-center mr-3"></i>
+            <h3>Gaming</h3>
+          <% end %>
+        </li>
+        <li class="p-2 hover:bg-gray-700 rounded-md">
+          <%= link_to "#", class: "flex flex-row w-full" do %>
+            <i class="fas fa-music self-center mr-3"></i>
+            <h3>Music</h3>
+          <% end %>
+        </li>
+        <li class="p-2 hover:bg-gray-700 rounded-md">
+          <%= link_to "#", class: "flex flex-row w-full" do %>
+            <i class="fas fa-atom self-center mr-3"></i>
+            <h3 class="text-lg">Science</h3>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  <% end %>

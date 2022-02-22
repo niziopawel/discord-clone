@@ -1,41 +1,45 @@
-class Servers::ChannelsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_server
+# frozen_string_literal: true
 
-  def new
-    @channel = Channel.new
-    render '/channels/new', locals: { server: @server, channels: @channel }
-  end
+module Servers
+  class ChannelsController < ApplicationController
+    before_action :authenticate_user!
+    before_action :set_server
 
-  def create
-    @channel = @server.channels.build(channel_params)
-
-    if @channel.save
-      redirect_to channel_path(@channel), notice: 'Channel created successfully'
-    else
-      render(
-        turbo_stream: turbo_stream.update(
-          'channel_form',
-          partial: 'channels/form',
-          locals: { server: @server, channel: @channel }
-        )
-      )
+    def new
+      @channel = Channel.new
+      render '/channels/new', locals: { server: @server, channels: @channel }
     end
-  end
 
-  private
+    def create
+      @channel = @server.channels.build(channel_params)
 
-  def require_permission
-    return if @server.owner == current_user
+      if @channel.save
+        redirect_to channel_path(@channel), notice: 'Channel created successfully'
+      else
+        render(
+          turbo_stream: turbo_stream.update(
+            'channel_form',
+            partial: 'channels/form',
+            locals: { server: @server, channel: @channel }
+          )
+        )
+      end
+    end
 
-    redirect_to channel_path(@channel), status: :unauthorized, notice: 'You do not have permission to do that.'
-  end
+    private
 
-  def set_server
-    @server = Server.find(params[:server_id])
-  end
+    def require_permission
+      return if @server.owner == current_user
 
-  def channel_params
-    params.require(:channel).permit(:name)
+      redirect_to channel_path(@channel), status: :unauthorized, notice: 'You do not have permission to do that.'
+    end
+
+    def set_server
+      @server = Server.find(params[:server_id])
+    end
+
+    def channel_params
+      params.require(:channel).permit(:name)
+    end
   end
 end

@@ -32,6 +32,10 @@ class Server < ApplicationRecord
     members.include?(user)
   end
 
+  def user_membership(user)
+    server_memberships.find_by('member_id = ?', user.id)
+  end
+
   def create_general_channel
     channels.create(name: 'general')
   end

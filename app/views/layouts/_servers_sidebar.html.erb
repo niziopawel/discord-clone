@@ -1,5 +1,5 @@
 <nav data-controller="sidebar" class="h-full w-16 min-w-16 m-0 flex flex-col bg-gray-900 text-white shadow z-10">
-  <%= link_to "#", class:"sidebar-icon group" do %>
+  <%= link_to authenticated_root_path, class:"sidebar-icon group" do %>
     <i class="fas fa-home"></i>
     <%= render partial: "shared/tooltip", locals: { display_text: "Home" } %>
   <% end %>
@@ -8,6 +8,10 @@
       <i class="far fa-gem"></i>
       <%= render partial: "shared/tooltip", locals: { display_text: server.name } %>
     <% end %>
+  <% end %>
+  <%= link_to servers_path, class: "sidebar-icon group" do %>
+    <i class="fas fa-compass fa-lg"></i>
+    <%= render partial: "shared/tooltip", locals: { display_text: "Explore servers" } %>
   <% end %>
   <%= link_to new_server_path, class: "sidebar-icon group", data: { turbo_frame: "modal" } do %>
     <i class="fas fa-plus"></i>

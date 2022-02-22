@@ -1,4 +1,4 @@
-<div class="h-screen w-48 min-w-48 text-gray-400 flex flex-col bg-gray-800">
+<%= render layout: "shared/inner_sidebar" do %>
   <div class="flex flex-row justify-between items-center min-h-14 shadow-sm px-3">
     <h1 class="text-lg font-semibold"><%= @server.name %></h1>
     <% if @server.owner == current_user %>
@@ -34,4 +34,4 @@
       <% end %>
     </ul>
   </nav>
-</div>
+<% end %>

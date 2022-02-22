@@ -1,0 +1,14 @@
+<div class="flex flex-row w-full h-full">
+  <%= render layout: "shared/inner_sidebar" do %>
+    <div class="flex flex-row justify-between items-center w-full shadow-sm px-4 min-h-14 z-10">
+      <h1 class="text-2xl text-white font-semibold z-0">Friends</h1>
+    </div>
+  <% end %>
+
+  <div class="w-full flex flex-col"> 
+    <%= render layout: "shared/navbar" do %>
+      <div></div>
+      <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

@@ -2,8 +2,12 @@
 
 class ServersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_server, only: %i[show edit update destroy]
+  before_action :set_server, only: %i[show edit update destroy join leave]
   before_action :require_permission, only: %i[edit update destroy]
+
+  def index
+    @servers = Server.all.includes(:members).sort_by { |server| -server.members.count }
+  end
 
   def new; end
 
@@ -45,6 +49,19 @@ class ServersController < ApplicationController
         redirect_to authenticated_root_path, status: :see_other, notice: 'Server was successfully destroyed.'
       end
     end
+  end
+
+  def join
+    if @server.server_memberships.create(member_id: current_user.id)
+      redirect_to @server.general_channel,
+                  notice: 'You successfully join this server.'
+    end
+  end
+
+  def leave
+    @user_membership = @server.user_membership(current_user)
+
+    redirect_to authenticated_root_path, notice: 'You successfully left this server.' if @user_membership.destroy
   end
 
   private

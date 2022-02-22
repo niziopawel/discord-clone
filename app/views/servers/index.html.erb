@@ -1,3 +1,9 @@
-<div class="ml-16">
-  <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
+<div class="flex flex-row w-full h-full">
+  <%= render partial: "discover_sidebar" %>
+  <div class="w-full flex flex-col"> 
+    <div class="m-4 flex flex-col">
+      <h1 class="text-2xl font-semibold">Popular servers</h1>
+      <%= render @servers %>
+    </div>
+  </div>
 </div>
