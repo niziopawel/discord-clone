@@ -1,4 +1,4 @@
-# Tic-Tac-Toe
+# Discord clone
 
 ## Table of contents
 
