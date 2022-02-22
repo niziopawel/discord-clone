@@ -4,8 +4,8 @@
     <p class="text-xs"><%= server.members.count %> Members</p>
   </div>
   <% if server.server_member?(current_user) %>
-    <%= link_to "Leave server", leave_server_path(server), class: "btn btn-danger self-start"%>
+    <%= link_to "Leave server", leave_server_path(server), class: "btn btn-outline-danger self-start"%>
   <% else %>
-    <%= link_to "Join server", join_server_path(server), class: "btn btn-primary self-start"%>
+    <%= link_to "Join server", join_server_path(server), class: "btn btn-outline-primary self-start"%>
   <% end %>
 </div>
