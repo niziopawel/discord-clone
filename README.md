@@ -3,9 +3,10 @@
 ## Table of contents
 
 - [General info](#general-info)
+- [Live Demo](#live-demo)
 - [Technologies](#tenchnologies)
-- [Setup](#setup)
-- [Screenshot](#screenshot)
+- [Local installation](#local-installation)
+
 
 ## General info
 
